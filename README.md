@@ -1,17 +1,27 @@
 # PlantBuddy goes AI
 
+
 ## Project
-Train a machine to recognize a specific leaf using the ML.NET framework
+#### Goal 
+- Train a machine to recognize the iconic [Canadian Maple leaf](https://en.m.wikipedia.org/wiki/File:Flag_of_Canada_%28leaf%29.svg)
+#### Technologies 
+- [ML.NET framework](https://dotnet.microsoft.com/en-us/apps/machinelearning-ai/ml-dotnet)
 
-### Relevancy
+
+## Motivation & Relevancy
 Presently AI is omnipresent in the news and seems to be mandatory for businesses to thrive in the future.
-Learning how to harnass the power of machine learning is a certain road to world dominating power!
+Learning how to harness the power of machine learning is a certain road to the main objective and ultimate motivation of acquiring ~~**world dominating power**~~ **knowledge**! 
 
-### Demo/Prototype
-Learn a machine to recognize the iconic Canadian Maple leaf
-![Canadian Maple leaf](canadianMapleLeaf.png)
+## Roadmap
+  - [X] Week 1: Initial Research
+  - [ ] Week 2: Project pitch and green light
+  - [ ] Week 3 - 5: In-dept Research
+  - [ ] Week 6 - 12: Implementation
+  - [ ] Week 13: Fine Tuning & debugging
+  - [ ] Week 14: Peer Review
+
 
 ## Sources
-1. [Official MS Website](https://dotnet.microsoft.com/en-us/apps/machinelearning-ai/ml-dotnet)
-2. [MS - Tutorial](https://dotnet.microsoft.com/en-us/learn/ml-dotnet/get-started-tutorial/intro)
-3. [Canadian Maple leaf](https://en.m.wikipedia.org/wiki/File:Flag_of_Canada_%28leaf%29.svg)
+1. [Official MS ML.NET Website](https://dotnet.microsoft.com/en-us/apps/machinelearning-ai/ml-dotnet)
+2. [MS - ML.NET Tutorial](https://dotnet.microsoft.com/en-us/learn/ml-dotnet/get-started-tutorial/intro)
+3. [Wikipedia - Canadian Maple leaf](https://en.m.wikipedia.org/wiki/File:Flag_of_Canada_%28leaf%29.svg)
