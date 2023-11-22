@@ -1,13 +1,19 @@
 using LeKetQ_LeafRecognizer.Data;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.ML;
+using Microsoft.Extensions.Hosting;
+using LeKetQ_LeafRecognizer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<LeafRecognizerModel>();
+builder.Services.AddPredictionEnginePool<ImageData, ImagePrediction>()
+    .FromFile("LeafRecognizerModel.mlnet", true);
+builder.Services.AddSingleton(_ => new ImagePredictionService("LeafRecognizerModel.mlnet"));
+
 
 var app = builder.Build();
 

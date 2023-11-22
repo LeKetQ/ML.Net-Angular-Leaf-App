@@ -1,9 +1,66 @@
 ﻿@page "/"
+@inject ImagePredictionService PredictionService
+@using Microsoft.AspNetCore.Components.Forms
+@using System.IO
 
-<PageTitle>Index</PageTitle>
+<h3 class="text-center">Image Recognition</h3>
 
-<h1>Hello, world!</h1>
+<div class="row">
+    <div class="col">
+        <h4>Select Image:</h4>
+        <InputFile OnChange="HandleFileSelect" />
+        <div>
+            @if (selectedImage != null)
+            {
+                <img src="@imageDataUrl" alt="Selected" style="max-width: 100%;" />
+            }
+        </div>
+    </div>
+    <div class="col">
+        <h4>Prediction Result:</h4>
+        <button @onclick="RecognizeImage">Recognize Image</button>
+        <div>
+            @if (!string.IsNullOrEmpty(predictionResult))
+            {
+                <p>@predictionResult</p>
+            }
+        </div>
+    </div>
+</div>
 
-Welcome to your new app.
+@code {
+    private Stream selectedImage; // Change FileStream to Stream
+    private string imageDataUrl;
+    private string predictionResult;
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    private async Task HandleFileSelect(InputFileChangeEventArgs e)
+    {
+        var selectedFile = e.File;
+
+        if (selectedFile != null)
+        {
+            // Continue processing the file
+            var fileStream = selectedFile.OpenReadStream();
+            selectedImage = fileStream;
+
+            var buffer = new byte[selectedFile.Size];
+            await selectedFile.OpenReadStream().ReadAsync(buffer);
+            imageDataUrl = $"data:{selectedFile.ContentType};base64,{Convert.ToBase64String(buffer)}";
+            StateHasChanged();
+        }
+    }
+
+    private async Task RecognizeImage()
+    {
+        if (selectedImage != null)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await selectedImage.CopyToAsync(memoryStream);
+                var imageBytes = memoryStream.ToArray();
+                predictionResult = await PredictionService.Predict(imageBytes);
+                StateHasChanged();
+            }
+        }
+    }
+}

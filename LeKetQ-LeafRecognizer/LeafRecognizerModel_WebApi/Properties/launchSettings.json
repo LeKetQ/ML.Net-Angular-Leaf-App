@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "LeafRecognizerModel_WebApi": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:61693;http://localhost:61694"
+    }
+  }
+}
