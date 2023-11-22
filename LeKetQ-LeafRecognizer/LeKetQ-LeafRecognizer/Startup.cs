@@ -1,6 +1,4 @@
-﻿using LeKetQ_LeafRecognizer.Data;
-
-namespace LeKetQ_LeafRecognizer
+﻿namespace LeKetQ_LeafRecognizer
 {
     public class Startup
     {

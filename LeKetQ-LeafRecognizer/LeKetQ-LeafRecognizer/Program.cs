@@ -1,8 +1,5 @@
-using LeKetQ_LeafRecognizer.Data;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.ML;
-using Microsoft.Extensions.Hosting;
 using LeKetQ_LeafRecognizer;
+using Microsoft.Extensions.ML;
 
 var builder = WebApplication.CreateBuilder(args);
 

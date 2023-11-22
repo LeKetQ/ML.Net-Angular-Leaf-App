@@ -1,5 +1,4 @@
-﻿// ImagePredictionService.cs
-using LeKetQ_LeafRecognizer;
+﻿using LeKetQ_LeafRecognizer;
 using Microsoft.ML;
 
 public class ImagePredictionService
@@ -21,7 +20,7 @@ public class ImagePredictionService
         };
 
         var prediction = mlContext.Model.CreatePredictionEngine<LeafRecognizerModel.ModelInput, LeafRecognizerModel.ModelOutput>(mlModel)
-                                      .Predict(sampleData);
+                                        .Predict(sampleData);
 
         return prediction.PredictedLabel;
     }
