@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeKetQ-LeafRecognizer", "LeKetQ-LeafRecognizer\LeKetQ-LeafRecognizer.csproj", "{7710E630-1AF1-48B0-A1FD-5976C2CDFA1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeKetQ-LeafRecognizer", "LeKetQ-LeafRecognizer\LeKetQ-LeafRecognizer.csproj", "{7710E630-1AF1-48B0-A1FD-5976C2CDFA1A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeafRecognizerModel_Api", "LeafRecognizerModel_Api\LeafRecognizerModel_Api.csproj", "{EC6EFCDE-7E08-4A62-A18E-121D96C761FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7710E630-1AF1-48B0-A1FD-5976C2CDFA1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7710E630-1AF1-48B0-A1FD-5976C2CDFA1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7710E630-1AF1-48B0-A1FD-5976C2CDFA1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC6EFCDE-7E08-4A62-A18E-121D96C761FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC6EFCDE-7E08-4A62-A18E-121D96C761FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC6EFCDE-7E08-4A62-A18E-121D96C761FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC6EFCDE-7E08-4A62-A18E-121D96C761FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
