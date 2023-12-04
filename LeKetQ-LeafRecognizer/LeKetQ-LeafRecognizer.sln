@@ -7,25 +7,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeKetQ-LeafRecognizer", "Le
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeafRecognizerModel_Api", "LeafRecognizerModel_Api\LeafRecognizerModel_Api.csproj", "{EC6EFCDE-7E08-4A62-A18E-121D96C761FF}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Angular-Leaf-App", "..\..\Angular-Leaf-App\", "{0CC317CD-63C3-4B70-8878-176DF9E845E9}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Angular-Leaf-App(1)", "..\Angular-Leaf-App\", "{8BDBE01B-1FED-42FA-A85B-2A8DBA1DC82A}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_59801"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\Angular-Leaf-App\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59801\"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_60416"
+		Debug.AspNetCompiler.PhysicalPath = "..\Angular-Leaf-App\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60416\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_59801"
-		Release.AspNetCompiler.PhysicalPath = "..\..\Angular-Leaf-App\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59801\"
+		Release.AspNetCompiler.VirtualPath = "/localhost_60416"
+		Release.AspNetCompiler.PhysicalPath = "..\Angular-Leaf-App\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60416\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "59801"
-		SlnRelativePath = "..\..\Angular-Leaf-App\"
+		VWDPort = "60416"
+		SlnRelativePath = "..\Angular-Leaf-App\"
 	EndProjectSection
 EndProject
 Global
@@ -42,10 +42,10 @@ Global
 		{EC6EFCDE-7E08-4A62-A18E-121D96C761FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC6EFCDE-7E08-4A62-A18E-121D96C761FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC6EFCDE-7E08-4A62-A18E-121D96C761FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0CC317CD-63C3-4B70-8878-176DF9E845E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CC317CD-63C3-4B70-8878-176DF9E845E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CC317CD-63C3-4B70-8878-176DF9E845E9}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CC317CD-63C3-4B70-8878-176DF9E845E9}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{8BDBE01B-1FED-42FA-A85B-2A8DBA1DC82A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BDBE01B-1FED-42FA-A85B-2A8DBA1DC82A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BDBE01B-1FED-42FA-A85B-2A8DBA1DC82A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BDBE01B-1FED-42FA-A85B-2A8DBA1DC82A}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
