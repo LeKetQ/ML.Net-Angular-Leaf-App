@@ -6,6 +6,7 @@
 - Train a machine to recognize the iconic [Canadian Maple leaf](https://en.m.wikipedia.org/wiki/File:Flag_of_Canada_%28leaf%29.svg)
 #### Technologies 
 - [ML.NET framework](https://dotnet.microsoft.com/en-us/apps/machinelearning-ai/ml-dotnet)
+- [Angular](https://angular.dev/)
 
 
 ## Motivation & Relevancy
@@ -25,3 +26,5 @@ Learning how to harness the power of machine learning is a certain road to the m
 1. [Official MS ML.NET Website](https://dotnet.microsoft.com/en-us/apps/machinelearning-ai/ml-dotnet)
 2. [MS - ML.NET Tutorial](https://dotnet.microsoft.com/en-us/learn/ml-dotnet/get-started-tutorial/intro)
 3. [Wikipedia - Canadian Maple leaf](https://en.m.wikipedia.org/wiki/File:Flag_of_Canada_%28leaf%29.svg)
+4. [Angular.dev](https://angular.dev/)
+5. [Angular Tutorials](https://angular.dev/tutorials)
