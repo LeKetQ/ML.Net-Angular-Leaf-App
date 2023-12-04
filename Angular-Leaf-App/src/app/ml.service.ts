@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError, Observable } from 'rxjs';
 
 export interface ModelInput {
   Label: string;
@@ -23,9 +24,18 @@ export class MLService {
 
   constructor(private http: HttpClient) {}
 
+  //predict(input: ModelInput): Observable<ModelOutput> {
+  //  const predictUrl = `${this.apiUrl}`;
+  //  return this.http.post<ModelOutput>(predictUrl, input);
+  //}
+
   predict(input: ModelInput): Observable<ModelOutput> {
     const predictUrl = `${this.apiUrl}`;
-    return this.http.post<ModelOutput>(predictUrl, input);
+    return this.http.post<ModelOutput>(predictUrl, input).pipe(
+      catchError((error) => {
+        return throwError(error);
+      })
+    );
   }
 
   uploadImage(file: File): Observable<string> {

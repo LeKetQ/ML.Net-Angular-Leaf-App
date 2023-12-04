@@ -12,7 +12,8 @@ export class AppComponent {
   private selectedFile: File | null = null;
   fileName: string | null = null;
   prediction: ModelOutput | null = null;
-  loading = false;
+  isLoading = false;
+  error: string | null = null;
 
   constructor(private mlService: MLService, private http: HttpClient) {}
 
@@ -29,34 +30,45 @@ export class AppComponent {
   }
 
   predict(): void {
-    this.loading = true;
-    if (this.selectedFile) 
+    this.isLoading = true;
+    this.error = null;
+
+    try
     {
-      const input: ModelInput = 
-      {
-        Label: this.fileName || 'Unknown',
-        ImageSource: "",
-      };
-
-      this.mlService.uploadImage(this.selectedFile).subscribe((imageSource: string) => 
-      {
-        input.ImageSource = imageSource;
-
-        this.mlService.predict(input).subscribe((prediction: ModelOutput) => 
+      if (this.selectedFile) {
+        const input: ModelInput =
         {
-          console.log('Prediction:', prediction);
-          this.prediction = prediction;
-          this.loading = false;
-        });
+          Label: this.fileName || 'Unknown',
+          ImageSource: "",
+        };
 
-      });
-    } 
-    else 
+        this.mlService.uploadImage(this.selectedFile).subscribe((imageSource: string) => {
+          input.ImageSource = imageSource;
+
+          this.mlService.predict(input).subscribe(
+            (prediction: ModelOutput) => {
+              this.prediction = prediction;
+              this.isLoading = false;
+            },
+            (error) => {
+              this.error = "Could not make a prediction, API unavailable";
+              this.isLoading = false;
+            }
+          );
+
+
+        });
+      }
+      else {
+        this.fileName = null;
+        this.isLoading = false;
+      }
+    }
+    catch (error)
     {
-      // TODO: Make it pretty
-      console.error('No file selected');
+      this.error = "Something went wrong, please try again.";
       this.fileName = null;
-      this.loading = false;
+      this.isLoading = false;
     }
   }
 }

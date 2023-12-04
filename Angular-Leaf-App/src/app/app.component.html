@@ -1,35 +1,38 @@
 
 <h1>LEAF RECOGNIZER</h1>
 
-<section>
+<section id="mainmenu">
   <div class="button">
-    <input type="file" (change)="onFileSelected($event)" /><br><br>
+    <input type="file" (change)="onFileSelected($event)" />
   </div>
 
-  <div class="button" *ngIf="!loading; else loadingSpinner">
+  <div class="button" *ngIf="!isLoading">
     <button (click)="predict()">Predict</button>
   </div>
-
-  <ng-template #loadingSpinner>
-    <!-- Loading circle or spinner HTML here -->
-    <div class="loading-spinner"></div>
-  </ng-template>
 </section>
 
-<section class="center" >
+<section id="flipcard" class="center" >
 
   <section class="front-face">
-     <figure class="contents front">
+    <figure class="contents front">
 
-      <ng-container *ngIf="fileName; else noImageSelected">
-        <p>{{ fileName | uppercase }}</p>
+      <ng-container *ngIf="error && !isLoading">
+        <p> {{ error }} </p>
       </ng-container>
-      
-      <ng-template #noImageSelected>
-        <p>Select an image</p>
-      </ng-template>
 
-     </figure>
+      <ng-container *ngIf="fileName && !error && !isLoading">
+        <p>Click predict and flip to see the result</p>
+      </ng-container>
+
+      <ng-container *ngIf="!fileName && !error && !isLoading">
+        <p>Select an image</p>
+      </ng-container>
+
+      <ng-container *ngIf="isLoading">
+        <div class="loading-spinner"></div>
+      </ng-container>
+
+    </figure>
   </section>
 
   <section class="back-face">
@@ -40,7 +43,7 @@
       </ng-container>
 
       <ng-template #noPrediction>
-        <p>Select an image to get a prediction</p>
+        <p>Select an image and click predict!</p>
       </ng-template>
 
      </figure>
