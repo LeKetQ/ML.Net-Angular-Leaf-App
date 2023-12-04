@@ -4,6 +4,8 @@
 ## Project
 #### Goal 
 - Train a machine to recognize the iconic [Canadian Maple leaf](https://en.m.wikipedia.org/wiki/File:Flag_of_Canada_%28leaf%29.svg)
+- -> Redirected to general leaf recognition due to insufficient available data for ML training
+  
 #### Technologies 
 - [ML.NET framework](https://dotnet.microsoft.com/en-us/apps/machinelearning-ai/ml-dotnet)
 - [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor)
