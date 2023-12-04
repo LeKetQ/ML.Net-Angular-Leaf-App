@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MLService, ModelInput, ModelOutput } from './ml.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,10 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   styleUrls: ['./app.component.css'],
   providers: [MLService],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
+
+  // Variables
+  private ngUnsubscribe = new Subject<void>();
   selectedFile: File | null = null;
   fileName: string | null = null;
   prediction: ModelOutput | null = null;
@@ -16,28 +21,34 @@ export class AppComponent {
   error: string | null = null;
   selectedImageSource: SafeUrl | null = null;
 
+  // Constructor
   constructor(private mlService: MLService, private sanitizer: DomSanitizer) { }
+
+  // Functions
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
   onFileSelected(event: any): void {
     this.reset();
 
-    try
-    {
+    try {
       this.selectedFile = event.target.files[0];
 
       if (this.selectedFile) {
-        const reader = new FileReader();
 
+        // Upload the image to render it on the webpage
+        const reader = new FileReader();
         reader.onload = (e) => {
           this.selectedImageSource = this.sanitizer.bypassSecurityTrustUrl(e.target?.result as string);
         };
-
         reader.readAsDataURL(this.selectedFile);
       }
     }
-    catch (error)
-    {
-      console.error('Error reading file:', error);
+    catch (error) {
+      this.error = "Something went wrong, please try again."
+      console.log(error);
     }
   }
 
@@ -46,28 +57,42 @@ export class AppComponent {
     this.error = null;
 
     if (this.selectedFile) {
+
+      // Create the input model
       const input: ModelInput =
       {
         Label: 'Unknown',
         ImageSource: "",
       };
 
-      this.mlService.uploadImage(this.selectedFile).subscribe((imageSource: string) => {
-        input.ImageSource = imageSource;
+      // Upload the image to the MLService
+      this.mlService.uploadImage(this.selectedFile)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((imageSource: string) => {
+          input.ImageSource = imageSource;
 
-        this.mlService.predict(input).subscribe(
-          (prediction: ModelOutput) => {
-            this.prediction = prediction;
-            this.isLoading = false;
-          },
+          // Predict through API call
+          this.mlService.predict(input)
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((prediction: ModelOutput) => {
+              this.prediction = prediction;
+              this.isLoading = false;
+            },
+              // API error
+              (error) => {
+                this.error = "Could not make a prediction, API unavailable";
+                this.isLoading = false;
+                console.log(error);
+              });
+        },
+          // Upload error
           (error) => {
-            this.error = "Could not make a prediction, API unavailable";
-            this.isLoading = false;
-          }
-        );
-      });
+            this.error = "Could not upload the image, please try again."
+            console.log(error);
+          });
     }
     else {
+      // No file selected
       this.fileName = null;
       this.isLoading = false;
     }
