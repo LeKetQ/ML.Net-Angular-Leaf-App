@@ -19,15 +19,8 @@ export interface ModelOutput {
   providedIn: 'root'
 })
 export class MLService {
-
   private apiUrl = 'https://localhost:53985/api/ML/predict';
-
   constructor(private http: HttpClient) {}
-
-  //predict(input: ModelInput): Observable<ModelOutput> {
-  //  const predictUrl = `${this.apiUrl}`;
-  //  return this.http.post<ModelOutput>(predictUrl, input);
-  //}
 
   predict(input: ModelInput): Observable<ModelOutput> {
     const predictUrl = `${this.apiUrl}`;

@@ -67,37 +67,19 @@
 
 .back-face {
   transform: rotateY(180deg);
-  /* background: linear-gradient(45deg,#043348 0%,#032535 100%); */
 }
 
 .back {
   color: white;
 }
 
-  .back h2 {
-    font-size: 33px;
-    padding-bottom: 5px;
-  }
-
-  .back span {
-    font-size: 25px;
-  }
-
-.icons {
-  margin: 10px 0;
-  display: block;
+.back h2 {
+  font-size: 33px;
+  padding-bottom: 5px;
 }
 
-i.fab {
-  color: #042f4b;
-  font-size: 20px;
-  height: 40px;
-  width: 40px;
-  background: white;
-  border-radius: 50%;
-  margin: 0 5px;
-  line-height: 40px;
-  cursor: pointer;
+.back span {
+  font-size: 25px;
 }
 
 .center:hover > .back-face {
@@ -136,23 +118,23 @@ i.fab {
   margin: 5px;
 }
 
-  .button input,
-  .button button {
-    width: 100%;
-    border: none;
-    padding: 10px;
-    margin: 0;
-    color: white;
-    background-color: transparent;
-  }
+.button input,
+.button button {
+  width: 100%;
+  border: none;
+  padding: 10px;
+  margin: 0;
+  color: white;
+  background-color: transparent;
+}
 
-    .button input:focus,
-    .button button:focus {
-      outline: none;
-    }
+.button input:focus,
+.button button:focus {
+  outline:groove;
+}
 
-    .upload{
-        width: 250px;
-        height: 250px;
-        margin-left: 10px;
-    }
+.uploadedImage {
+  width: 250px;
+  height: 250px;
+  margin-left: 10px;
+}
