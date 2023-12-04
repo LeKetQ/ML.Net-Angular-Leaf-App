@@ -14,10 +14,10 @@ Learning how to harness the power of machine learning is a certain road to the m
 
 ## Roadmap
   - [X] Week 1: Initial Research
-  - [ ] Week 2: Project pitch and green light
-  - [ ] Week 3 - 5: In-dept Research
-  - [ ] Week 6 - 12: Implementation
-  - [ ] Week 13: Fine Tuning & debugging
+  - [x] Week 2: Project pitch and green light
+  - [x] Week 3 - 5: In-dept Research
+  - [x] Week 6 - 12: Implementation
+  - [x] Week 13: Fine Tuning & debugging
   - [ ] Week 14: Peer Review
 
 
