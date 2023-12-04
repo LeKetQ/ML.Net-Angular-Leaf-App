@@ -1,0 +1,49 @@
+
+<h1>LEAF RECOGNIZER</h1>
+
+<section>
+  <div class="button">
+    <input type="file" (change)="onFileSelected($event)" /><br><br>
+  </div>
+
+  <div class="button" *ngIf="!loading; else loadingSpinner">
+    <button (click)="predict()">Predict</button>
+  </div>
+
+  <ng-template #loadingSpinner>
+    <!-- Loading circle or spinner HTML here -->
+    <div class="loading-spinner"></div>
+  </ng-template>
+</section>
+
+<section class="center" >
+
+  <section class="front-face">
+     <figure class="contents front">
+
+      <ng-container *ngIf="fileName; else noImageSelected">
+        <p>{{ fileName | uppercase }}</p>
+      </ng-container>
+      
+      <ng-template #noImageSelected>
+        <p>Select an image</p>
+      </ng-template>
+
+     </figure>
+  </section>
+
+  <section class="back-face">
+     <figure class="contents back">
+      
+      <ng-container *ngIf="prediction; else noPrediction">
+        <h2> {{ prediction.predictedLabel| uppercase }} </h2>
+      </ng-container>
+
+      <ng-template #noPrediction>
+        <p>Select an image to get a prediction</p>
+      </ng-template>
+
+     </figure>
+  </section>
+
+</section>

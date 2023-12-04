@@ -1,0 +1,27 @@
+      <div class="center" *ngIf="hero">
+        
+         <div class="front-face">
+            <div class="contents front">
+               <p>
+                {{hero.name | uppercase}}
+               </p>
+               <!-- <span>Kathmandu, Nepal</span> -->
+            </div>
+         </div>
+
+         <div class="back-face">
+            <div class="contents back">
+               <h2>
+                  ID: {{hero.id}}
+               </h2>
+               <span>World Class Hero</span>
+               <!-- <div class="icons">
+                  <i class="fab fa-facebook-f"></i>
+                  <i class="fab fa-twitter"></i>
+                  <i class="fab fa-instagram"></i>
+                  <i class="fab fa-linkedin-in"></i>
+               </div> -->
+            </div>
+         </div>
+
+      </div>
