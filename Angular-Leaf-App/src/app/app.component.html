@@ -6,38 +6,48 @@
     <input type="file" (change)="onFileSelected($event)" />
   </div>
 
-  <div class="button" *ngIf="!isLoading">
+  <div>
+    <ng-container *ngIf="selectedImageSource">
+      <img class="upload" [src]="selectedImageSource" alt="Selected Image">
+    </ng-container>
+  </div>
+
+  <div class="button" *ngIf="!isLoading && selectedFile">
     <button (click)="predict()">Predict</button>
   </div>
 </section>
 
-<section id="flipcard" class="center" >
+<section id="flipcard" class="center">
 
   <section class="front-face">
     <figure class="contents front">
 
-      <ng-container *ngIf="error && !isLoading">
+      <ng-container *ngIf="error">
         <p> {{ error }} </p>
       </ng-container>
 
-      <ng-container *ngIf="fileName && !error && !isLoading">
-        <p>Click predict and flip to see the result</p>
+      <ng-container *ngIf="!selectedFile && !error">
+        <p>Select an image</p>
       </ng-container>
 
-      <ng-container *ngIf="!fileName && !error && !isLoading">
-        <p>Select an image</p>
+      <ng-container *ngIf="selectedFile && !isLoading && !error && !prediction">
+        <p>Click predict!</p>
       </ng-container>
 
       <ng-container *ngIf="isLoading">
         <div class="loading-spinner"></div>
       </ng-container>
 
+      <ng-container *ngIf="prediction && !error">
+        <p>Flip to see prediction</p>
+      </ng-container>
+
     </figure>
   </section>
 
   <section class="back-face">
-     <figure class="contents back">
-      
+    <figure class="contents back">
+
       <ng-container *ngIf="prediction; else noPrediction">
         <h2> {{ prediction.predictedLabel| uppercase }} </h2>
       </ng-container>
@@ -46,7 +56,7 @@
         <p>Select an image and click predict!</p>
       </ng-template>
 
-     </figure>
+    </figure>
   </section>
 
 </section>
