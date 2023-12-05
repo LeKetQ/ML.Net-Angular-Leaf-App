@@ -55,6 +55,7 @@ export class AppComponent implements OnDestroy {
   predict(): void {
     this.isLoading = true;
     this.error = null;
+    this.prediction = null;
 
     if (this.selectedFile) {
 
@@ -66,13 +67,15 @@ export class AppComponent implements OnDestroy {
       };
 
       // Upload the image to the MLService
-      this.mlService.uploadImage(this.selectedFile)
+      this.mlService
+        .uploadImage(this.selectedFile)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((imageSource: string) => {
           input.ImageSource = imageSource;
 
           // Predict through API call
-          this.mlService.predict(input)
+          this.mlService
+            .predict(input)
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((prediction: ModelOutput) => {
               this.prediction = prediction;
