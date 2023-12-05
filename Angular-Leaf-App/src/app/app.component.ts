@@ -1,8 +1,8 @@
-import { Component, OnDestroy } from '@angular/core';
-import { MLService, ModelInput, ModelOutput } from './ml.service';
+import { Component } from '@angular/core';
+import { MLService, ModelOutput } from './ml.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, of } from 'rxjs';
+import { take, tap, switchMap, filter, catchError, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,102 +10,80 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./app.component.css'],
   providers: [MLService],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent {
+  constructor(private mlService: MLService, private sanitizer: DomSanitizer) { }
 
-  // Variables
-  private ngUnsubscribe = new Subject<void>();
   selectedFile: File | null = null;
-  fileName: string | null = null;
-  prediction: ModelOutput | null = null;
   isLoading = false;
   error: string | null = null;
   selectedImageSource: SafeUrl | null = null;
 
-  // Constructor
-  constructor(private mlService: MLService, private sanitizer: DomSanitizer) { }
+  behaviorObject$ = new BehaviorSubject<File | null>(null);
+  private predictionResult$ = this.behaviorObject$.pipe(
+    tap(() => {
+      this.error = null;
+    }),
+    filter(
+      (item) => item != null,
+    ),
+    tap(() =>
+      this.isLoading = true,
+    ),
+    switchMap(
+      (file) => this.mlService.predictFromImage$(file as File)
+        .pipe(
+          take(1),
+          tap(() => {
+            this.isLoading = false;
+          }),
 
-  // Functions
-  ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
+          // Only make one call
+          catchError((error) => {
+            console.log(error);
+            this.error = "Oops, something went wrong!";
+            this.isLoading = false;
+            return of(null);
+          }),
+          shareReplay(1)
+        )
+    )
+  )
+
+  private isCancelled$ = new BehaviorSubject(false);
+  prediction$ = combineLatest([this.predictionResult$, this.isCancelled$])
+    .pipe(
+      switchMap(([prediction, isCancelled]) => {
+        if (isCancelled) {
+          return of(null)
+        }
+        else {
+          return of(prediction);
+        }
+      }),
+      shareReplay(1)
+    );
 
   onFileSelected(event: any): void {
-    this.reset();
-
-    try {
-      this.selectedFile = event.target.files[0];
-
-      if (this.selectedFile) {
-
-        // Upload the image to render it on the webpage
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.selectedImageSource = this.sanitizer.bypassSecurityTrustUrl(e.target?.result as string);
-        };
-        reader.readAsDataURL(this.selectedFile);
-      }
-    }
-    catch (error) {
-      this.error = "Something went wrong, please try again."
-      console.log(error);
-    }
-  }
-
-  predict(): void {
-    this.isLoading = true;
+    this.selectedImageSource = null;
     this.error = null;
-    this.prediction = null;
+    this.isLoading = false;
+    this.selectedFile = event.target.files[0];
 
     if (this.selectedFile) {
 
-      // Create the input model
-      const input: ModelInput =
-      {
-        Label: 'Unknown',
-        ImageSource: "",
+      // Upload the image to render it on the webpage
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.selectedImageSource = this.sanitizer.bypassSecurityTrustUrl(e.target?.result as string);
       };
 
-      // Upload the image to the MLService
-      this.mlService
-        .uploadImage(this.selectedFile)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe((imageSource: string) => {
-          input.ImageSource = imageSource;
-
-          // Predict through API call
-          this.mlService
-            .predict(input)
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe((prediction: ModelOutput) => {
-              this.prediction = prediction;
-              this.isLoading = false;
-            },
-              // API error
-              (error) => {
-                this.error = "Could not make a prediction, API unavailable";
-                this.isLoading = false;
-                console.log(error);
-              });
-        },
-          // Upload error
-          (error) => {
-            this.error = "Could not upload the image, please try again."
-            console.log(error);
-          });
+      reader.readAsDataURL(this.selectedFile);
+      if (this.isCancelled$.value) {
+        this.isCancelled$.next(false);
+      }
     }
     else {
-      // No file selected
-      this.fileName = null;
-      this.isLoading = false;
+      this.isCancelled$.next(true);
     }
-  }
-
-  reset(): void {
-    this.error = null;
-    this.prediction = null;
-    this.selectedFile = null;
-    this.fileName = null;
-    this.isLoading = false;
   }
 }

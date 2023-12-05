@@ -13,50 +13,66 @@
   </div>
 
   <div class="button" *ngIf="!isLoading && selectedFile">
-    <button (click)="predict()">Predict</button>
+    <button (click)="behaviorObject$.next(selectedFile)">Predict</button>
   </div>
 </section>
 
+
+
 <section id="flipcard" class="center">
 
-  <section class="front-face">
-    <figure class="contents front">
+  <ng-container *ngIf="(prediction$ | async) as pred; else noPrediction">
+    <section class="front-face">
+      <figure class="contents front">
 
-      <ng-container *ngIf="error">
-        <p> {{ error }} </p>
-      </ng-container>
-
-      <ng-container *ngIf="!selectedFile && !error">
-        <p>Select an image</p>
-      </ng-container>
-
-      <ng-container *ngIf="selectedFile && !isLoading && !error && !prediction">
-        <p>Click predict!</p>
-      </ng-container>
-
-      <ng-container *ngIf="isLoading">
-        <div class="loading-spinner"></div>
-      </ng-container>
-
-      <ng-container *ngIf="prediction && !error">
         <p>Flip to see prediction</p>
-      </ng-container>
 
-    </figure>
-  </section>
+      </figure>
+    </section>
 
-  <section class="back-face">
-    <figure class="contents back">
+    <section class="back-face">
+      <figure class="contents back">
 
-      <ng-container *ngIf="prediction; else noPrediction">
-        <h2> {{ prediction.predictedLabel| uppercase }} </h2>
-      </ng-container>
+        <h2> {{ pred.predictedLabel }} </h2>
 
-      <ng-template #noPrediction>
+      </figure>
+    </section>
+  </ng-container>
+
+  <ng-template #noPrediction>
+    <section class="front-face">
+      <figure class="contents front">
+
+        <ng-container *ngIf="isLoading">
+          <div class="loading-spinner"></div>
+        </ng-container>
+
+        <ng-container *ngIf="!selectedFile && !error">
+          <p>Select an image</p>
+        </ng-container>
+
+        <ng-container *ngIf="selectedFile && !isLoading && !error">
+          <p>Click predict!</p>
+        </ng-container>
+
+        <ng-container *ngIf="error">
+          <p> {{ error }} </p>
+        </ng-container>
+
+      </figure>
+    </section>
+
+    <section class="back-face">
+      <figure class="contents back">
+
         <p>Select an image and click predict!</p>
-      </ng-template>
 
-    </figure>
-  </section>
+      </figure>
+    </section>
+  </ng-template>
 
 </section>
+
+
+
+
