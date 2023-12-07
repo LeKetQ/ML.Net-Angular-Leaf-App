@@ -1,4 +1,4 @@
-* {
+/** {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -73,14 +73,14 @@
   color: white;
 }
 
-.back h2 {
-  font-size: 33px;
-  padding-bottom: 5px;
-}
+  .back h2 {
+    font-size: 33px;
+    padding-bottom: 5px;
+  }
 
-.back span {
-  font-size: 25px;
-}
+  .back span {
+    font-size: 25px;
+  }
 
 .center:hover > .back-face {
   transform: rotateY(0deg);
@@ -118,23 +118,172 @@
   margin: 5px;
 }
 
-.button input,
-.button button {
-  width: 100%;
-  border: none;
-  padding: 10px;
-  margin: 0;
-  color: white;
-  background-color: transparent;
-}
+  .button input,
+  .button button {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    margin: 0;
+    color: white;
+    background-color: transparent;
+  }
 
-.button input:focus,
-.button button:focus {
-  outline:groove;
-}
+    .button input:focus,
+    .button button:focus {
+      outline: groove;
+    }
 
 .uploadedImage {
   width: 250px;
   height: 250px;
   margin-left: 10px;
+}*/
+
+
+/*MAIN*/
+#main {
+  display: grid;
+  grid-template-columns: 6fr 6fr;
+  grid-template-rows: 3fr auto auto;
+  grid-template-areas:
+    "header header"
+    "leftWindow rightWindow"
+    "footer footer";
+}
+
+
+/*HEADER*/
+#header {
+  grid-area: header;
+  text-align: center;
+}
+
+
+/*FOOTER*/
+#footer {
+  grid-area: footer;
+  position: absolute;
+  bottom: 0;
+}
+
+
+/*LEFT WINDOW*/
+#leftWindow {
+  grid-area: leftWindow;
+  display: grid;
+  grid-template-columns: 12fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "buttons"
+    "uploadedPicture";
+}
+
+#pictureInput {
+  grid-area: buttons;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type=file] {
+  width: 350px;
+  max-width: 100%;
+  color: #444;
+  padding: 5px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #555;
+  float: left;
+}
+
+  input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #084cdf;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+  }
+
+    input[type=file]::file-selector-button:hover {
+      background: #0d45a5;
+    }
+
+#predictButton {
+  grid-area: buttons;
+  width: 100px;
+  margin-left: 50px;
+  margin-top: 1px;
+  height: 45px;
+  border: none;
+  background: #084cdf;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+  float: left;
+}
+
+#uploadedPicture {
+  grid-area: uploadedPicture;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 300px;
+  border-radius: 10px;
+}
+
+
+/*RIGHT WINDOW*/
+#rightWindow {
+  grid-area: rightWindow;
+  display: grid;
+  grid-template-columns: 12fr;
+  grid-template-rows: 2fr auto;
+  grid-template-areas:
+    "predictionLabel"
+    "percentageTitle"
+    "predictionPercentage";
+}
+
+#prediction{
+  text-align: center;
+  margin-top: 100px;
+}
+
+#predictionLabel {
+  grid-area: predictionLabel;
+}
+
+#percentageTitle {
+  grid-area: percentageTitle;
+}
+
+#predictionPercentage {
+  grid-area: predictionPercentage;
+}
+
+/*LOADING SPINNER ANIMATION*/
+#loading-spinner {
+  border: 8px solid white;
+  border-top: 8px solid goldenrod;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

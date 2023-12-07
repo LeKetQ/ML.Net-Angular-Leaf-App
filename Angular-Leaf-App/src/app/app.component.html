@@ -1,5 +1,4 @@
-
-<h1>LEAF RECOGNIZER</h1>
+<!--<h1>LEAF RECOGNIZER</h1>
 
 <section id="mainmenu">
   <div class="button">
@@ -13,50 +12,139 @@
   </div>
 
   <div class="button" *ngIf="!isLoading && selectedFile">
-    <button (click)="predict()">Predict</button>
+    <button (click)="behaviorObject$.next(selectedFile)">Predict</button>
   </div>
 </section>
 
+
+
 <section id="flipcard" class="center">
 
-  <section class="front-face">
-    <figure class="contents front">
+  <ng-container *ngIf="(prediction$ | async) as pred; else noPrediction">
+    <section class="front-face">
+      <figure class="contents front">
 
-      <ng-container *ngIf="error">
-        <p> {{ error }} </p>
-      </ng-container>
-
-      <ng-container *ngIf="!selectedFile && !error">
-        <p>Select an image</p>
-      </ng-container>
-
-      <ng-container *ngIf="selectedFile && !isLoading && !error && !prediction">
-        <p>Click predict!</p>
-      </ng-container>
-
-      <ng-container *ngIf="isLoading">
-        <div class="loading-spinner"></div>
-      </ng-container>
-
-      <ng-container *ngIf="prediction && !error">
         <p>Flip to see prediction</p>
-      </ng-container>
 
-    </figure>
-  </section>
+      </figure>
+    </section>
 
-  <section class="back-face">
-    <figure class="contents back">
+    <section class="back-face">
+      <figure class="contents back">
 
-      <ng-container *ngIf="prediction; else noPrediction">
-        <h2> {{ prediction.predictedLabel| uppercase }} </h2>
-      </ng-container>
+        <h2> {{ pred.predictedLabel }} </h2>
 
-      <ng-template #noPrediction>
+      </figure>
+    </section>
+  </ng-container>
+
+  <ng-template #noPrediction>
+    <section class="front-face">
+      <figure class="contents front">
+
+        <ng-container *ngIf="isLoading">
+          <div class="loading-spinner"></div>
+        </ng-container>
+
+        <ng-container *ngIf="!selectedFile && !error">
+          <p>Select an image</p>
+        </ng-container>
+
+        <ng-container *ngIf="selectedFile && !isLoading && !error">
+          <p>Click predict!</p>
+        </ng-container>
+
+        <ng-container *ngIf="error">
+          <p> {{ error }} </p>
+        </ng-container>
+
+      </figure>
+    </section>
+
+    <section class="back-face">
+      <figure class="contents back">
+
         <p>Select an image and click predict!</p>
-      </ng-template>
 
+      </figure>
+    </section>
+  </ng-template>
+
+</section>-->
+
+
+<section id="main">
+
+  <header id="header">
+
+    <h1>POC - Leaf recognition using ML.NET</h1>
+    <h2>Powered by Angular</h2>
+
+  </header>
+
+  <section id="leftWindow">
+
+    <section>
+      <input id="pictureInput" type="file" accept="image/*" (change)="onFileSelected($event)" />
+
+      <ng-container *ngIf="!isLoading && selectedFile">
+        <button id="predictButton" (click)="setSelectedFile()">Predict</button>
+      </ng-container>
+    </section>
+
+    <figure id="uploadedPicture">
+      <ng-container *ngIf="selectedImageSource">
+        <img id="uploadedPicture" [src]="selectedImageSource" alt="Selected Image" width="500" height="300" object-fit="cover">
+      </ng-container>
     </figure>
+
   </section>
+
+
+  <section id="rightWindow">
+
+    <ng-container *ngIf="(prediction$ | async) as pred; else noPrediction">
+
+      <article id="prediction">
+        <h2 id="predictionLabel"> {{ pred.predictedLabel }} </h2>
+        <h3 id="percentageTitle">Probability:</h3>
+        <h4 id="predictionPercentage"> {{ counter | number: '0.1-2' }}% </h4>
+      </article>
+
+    </ng-container>
+
+
+    <ng-template #noPrediction>
+
+      <article id="prediction">
+        <ng-container *ngIf="isLoading">
+          <div id="loading-spinner"></div>
+        </ng-container>
+
+        <ng-container *ngIf="!selectedFile && !error">
+          <h4>Select an image</h4>
+        </ng-container>
+
+        <ng-container *ngIf="selectedFile && !isLoading && !error">
+          <h4>Click predict!</h4>
+        </ng-container>
+
+        <ng-container *ngIf="error">
+          <h4> {{ error }} </h4>
+        </ng-container>
+      </article>
+
+    </ng-template>
+
+  </section>
+
+
+  <footer id="footer">
+    &copy; Quentin De Munck - 2023
+  </footer>
 
 </section>
+
+
+
+
