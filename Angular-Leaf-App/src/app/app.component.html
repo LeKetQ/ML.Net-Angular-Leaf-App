@@ -1,5 +1,4 @@
-
-<h1>LEAF RECOGNIZER</h1>
+<!--<h1>LEAF RECOGNIZER</h1>
 
 <section id="mainmenu">
   <div class="button">
@@ -70,6 +69,79 @@
       </figure>
     </section>
   </ng-template>
+
+</section>-->
+
+
+<section id="main">
+
+  <header id="header">
+
+    <h1>POC - Leaf recognition using ML.NET</h1>
+    <h2>Powered by Angular</h2>
+
+  </header>
+
+  <section id="leftWindow">
+
+    <section>
+      <input id="pictureInput" type="file" accept="image/*" (change)="onFileSelected($event)" />
+
+      <ng-container *ngIf="!isLoading && selectedFile">
+        <button id="predictButton" (click)="setSelectedFile()">Predict</button>
+      </ng-container>
+    </section>
+
+    <figure id="uploadedPicture">
+      <ng-container *ngIf="selectedImageSource">
+        <img id="uploadedPicture" [src]="selectedImageSource" alt="Selected Image" width="500" height="300" object-fit="cover">
+      </ng-container>
+    </figure>
+
+  </section>
+
+
+  <section id="rightWindow">
+
+    <ng-container *ngIf="(prediction$ | async) as pred; else noPrediction">
+
+      <article id="prediction">
+        <h2 id="predictionLabel"> {{ pred.predictedLabel }} </h2>
+        <h3 id="percentageTitle">Probability:</h3>
+        <h4 id="predictionPercentage"> {{ counter | number: '0.1-2' }}% </h4>
+      </article>
+
+    </ng-container>
+
+
+    <ng-template #noPrediction>
+
+      <article id="prediction">
+        <ng-container *ngIf="isLoading">
+          <div id="loading-spinner"></div>
+        </ng-container>
+
+        <ng-container *ngIf="!selectedFile && !error">
+          <h4>Select an image</h4>
+        </ng-container>
+
+        <ng-container *ngIf="selectedFile && !isLoading && !error">
+          <h4>Click predict!</h4>
+        </ng-container>
+
+        <ng-container *ngIf="error">
+          <h4> {{ error }} </h4>
+        </ng-container>
+      </article>
+
+    </ng-template>
+
+  </section>
+
+
+  <footer id="footer">
+    &copy; Quentin De Munck - 2023
+  </footer>
 
 </section>
 
