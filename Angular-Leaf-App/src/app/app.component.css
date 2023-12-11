@@ -143,12 +143,13 @@
 /*MAIN*/
 #main {
   display: grid;
-  grid-template-columns: 6fr 6fr;
+  grid-template-columns: 2fr 4fr 4fr 2fr;
   grid-template-rows: 3fr auto auto;
   grid-template-areas:
-    "header header"
-    "leftWindow rightWindow"
-    "footer footer";
+    "header header header header"
+    "asideOne leftWindow rightWindow asideTwo"
+    "footer footer footer footer";
+  color: #023020;
 }
 
 
@@ -156,8 +157,13 @@
 #header {
   grid-area: header;
   text-align: center;
+  border-bottom: 1px solid #023020;
+  margin-bottom: 20px;
 }
 
+h4{
+    font-size: xx-large;
+}
 
 /*FOOTER*/
 #footer {
@@ -178,6 +184,7 @@
     "uploadedPicture";
 }
 
+/*INPUT PICTURE*/
 #pictureInput {
   grid-area: buttons;
   display: flex;
@@ -199,16 +206,16 @@ input[type=file] {
   input[type=file]::file-selector-button {
     margin-right: 20px;
     border: none;
-    background: #084cdf;
+    background-color: #023020;
     padding: 10px 20px;
     border-radius: 10px;
     color: #fff;
     cursor: pointer;
-    transition: background .2s ease-in-out;
+    transition: background .5s ease-in-out;
   }
 
     input[type=file]::file-selector-button:hover {
-      background: #0d45a5;
+      background-color: #006400;
     }
 
 #predictButton {
@@ -218,15 +225,21 @@ input[type=file] {
   margin-top: 1px;
   height: 45px;
   border: none;
-  background: #084cdf;
+  background-color: #023020;
   padding: 10px 20px;
   border-radius: 10px;
   color: #fff;
   cursor: pointer;
-  transition: background .2s ease-in-out;
+  transition: background .5s ease-in-out;
   float: left;
 }
 
+  #predictButton:hover {
+    background-color: #006400;
+  }
+
+
+/*USER PICTURE INPUT*/
 #uploadedPicture {
   grid-area: uploadedPicture;
   display: flex;
@@ -257,20 +270,23 @@ input[type=file] {
 
 #predictionLabel {
   grid-area: predictionLabel;
+  font-size: xx-large;
 }
 
 #percentageTitle {
   grid-area: percentageTitle;
+  font-size: xx-large;
 }
 
 #predictionPercentage {
   grid-area: predictionPercentage;
+  font-size: xx-large;
 }
 
 /*LOADING SPINNER ANIMATION*/
 #loading-spinner {
   border: 8px solid white;
-  border-top: 8px solid goldenrod;
+  border-top: 8px solid #023020;
   border-radius: 50%;
   width: 50px;
   height: 50px;
