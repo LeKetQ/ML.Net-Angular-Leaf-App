@@ -143,13 +143,62 @@
 /*MAIN*/
 #main {
   display: grid;
-  grid-template-columns: 2fr 4fr 4fr 2fr;
-  grid-template-rows: 3fr auto auto;
+  grid-template-columns: 2fr auto auto 2fr;
+  grid-template-rows: 5fr auto 1fr;
   grid-template-areas:
-    "header header header header"
-    "asideOne leftWindow rightWindow asideTwo"
+    "leafLogo header header asideRight"
+    "angularLogo leftWindow rightWindow asideRight"
     "footer footer footer footer";
   color: #023020;
+}
+
+/* ANGULAR LOGO */
+#angularLogo{
+  grid-area: angularLogo;
+  content: url('../assets/angular-logo.png');
+  width: 125px;
+  margin-top: 50px;
+  object-fit: cover;
+  mix-blend-mode: color-burn;
+}
+
+/*LEAF LOGO*/
+#leafLogo {
+  grid-area: leafLogo;
+  position: relative;
+}
+
+#leafLogo:before {
+  content: url('../assets/black-leaf.png');
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #f00;
+  animation: bounce 2s infinite ease-in-out;
+}
+
+#shadow{
+  grid-area: leafLogo;
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  top: 112px;
+  left: 66px;
+  z-index: -1;
+  border-radius: 50%;
+  background-color: lightgray;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  transform: rotate(-12deg) scale(1, 1);
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 
@@ -161,9 +210,14 @@
   margin-bottom: 20px;
 }
 
-h4{
-    font-size: xx-large;
+h1 {
+  font-size: xx-large;
 }
+
+h4 {
+  font-size: xx-large;
+}
+
 
 /*FOOTER*/
 #footer {
@@ -263,7 +317,7 @@ input[type=file] {
     "predictionPercentage";
 }
 
-#prediction{
+#prediction {
   text-align: center;
   margin-top: 100px;
 }

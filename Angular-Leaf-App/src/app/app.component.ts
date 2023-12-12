@@ -79,6 +79,7 @@ export class AppComponent {
     combineLatest([this.predictionResult$, this.isCancelled$])
       .pipe(
         switchMap(([prediction, isCancelled]) => {
+          console.log(isCancelled);
           if (!isCancelled) {
             return of(prediction)
           }
@@ -115,15 +116,18 @@ export class AppComponent {
       ),
     );
 
-
   onFileSelected(event: any): void {
+
+    if (!this.isCancelled$.value) {
+      this.isCancelled$.next(true);
+    }
     this.selectedImageSource = null;
     this.error = null;
     this.isLoading = false;
     this.selectedFile = event.target.files[0];
-    this.isCancelled$.next(false);
 
     if (this.selectedFile) {
+
 
       // Upload the image to render it on the webpage
       const reader = new FileReader();
@@ -131,7 +135,6 @@ export class AppComponent {
         this.selectedImageSource = this.sanitizer.bypassSecurityTrustUrl(e.target?.result as string);
       };
       reader.readAsDataURL(this.selectedFile);
-
     }
     else {
       this.isCancelled$.next(true);
@@ -143,6 +146,7 @@ export class AppComponent {
   }
 
   setSelectedFile() {
-    return this.behaviorObject$.next(this.selectedFile)
+    this.behaviorObject$.next(this.selectedFile);
+    this.isCancelled$.next(false);
   }
 }

@@ -1,6 +1,15 @@
 
 <section id="main">
 
+  <!-- LEAF LOGO -->
+  <figure id="leafLogo">
+  </figure>
+  <div id="shadow"></div>
+
+  <!-- ANGULAR LOGO -->
+  <figure id="angularLogo">
+  </figure>
+
   <!-- HEADER -->
   <header id="header">
     <h1>POC - Leaf recognition using ML.NET</h1>
@@ -39,6 +48,7 @@
     <ng-container *ngIf="(prediction$ | async) as pred; else noPrediction">
 
       <article id="prediction">
+        <h1>Last prediction:</h1>
         <h2 id="predictionLabel"> {{ pred.predictedLabel }} </h2>
         <h3 id="percentageTitle">Probability:</h3>
         <h4 id="predictionPercentage"> {{ counter | number: '0.1-2' }}% </h4>
