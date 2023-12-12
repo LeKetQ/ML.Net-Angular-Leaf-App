@@ -79,7 +79,6 @@ export class AppComponent {
     combineLatest([this.predictionResult$, this.isCancelled$])
       .pipe(
         switchMap(([prediction, isCancelled]) => {
-          console.log(isCancelled);
           if (!isCancelled) {
             return of(prediction)
           }
