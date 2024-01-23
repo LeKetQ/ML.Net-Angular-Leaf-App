@@ -1,97 +1,36 @@
-<!--<h1>LEAF RECOGNIZER</h1>
-
-<section id="mainmenu">
-  <div class="button">
-    <input type="file" (change)="onFileSelected($event)" />
-  </div>
-
-  <div>
-    <ng-container *ngIf="selectedImageSource">
-      <img class="uploadedImage" [src]="selectedImageSource" alt="Selected Image">
-    </ng-container>
-  </div>
-
-  <div class="button" *ngIf="!isLoading && selectedFile">
-    <button (click)="behaviorObject$.next(selectedFile)">Predict</button>
-  </div>
-</section>
-
-
-
-<section id="flipcard" class="center">
-
-  <ng-container *ngIf="(prediction$ | async) as pred; else noPrediction">
-    <section class="front-face">
-      <figure class="contents front">
-
-        <p>Flip to see prediction</p>
-
-      </figure>
-    </section>
-
-    <section class="back-face">
-      <figure class="contents back">
-
-        <h2> {{ pred.predictedLabel }} </h2>
-
-      </figure>
-    </section>
-  </ng-container>
-
-  <ng-template #noPrediction>
-    <section class="front-face">
-      <figure class="contents front">
-
-        <ng-container *ngIf="isLoading">
-          <div class="loading-spinner"></div>
-        </ng-container>
-
-        <ng-container *ngIf="!selectedFile && !error">
-          <p>Select an image</p>
-        </ng-container>
-
-        <ng-container *ngIf="selectedFile && !isLoading && !error">
-          <p>Click predict!</p>
-        </ng-container>
-
-        <ng-container *ngIf="error">
-          <p> {{ error }} </p>
-        </ng-container>
-
-      </figure>
-    </section>
-
-    <section class="back-face">
-      <figure class="contents back">
-
-        <p>Select an image and click predict!</p>
-
-      </figure>
-    </section>
-  </ng-template>
-
-</section>-->
-
 
 <section id="main">
 
+  <!-- LEAF LOGO -->
+  <figure id="leafLogo">
+  </figure>
+  <div id="shadow"></div>
+
+  <!-- ANGULAR LOGO -->
+  <figure id="angularLogo">
+  </figure>
+
+  <!-- HEADER -->
   <header id="header">
-
     <h1>POC - Leaf recognition using ML.NET</h1>
-    <h2>Powered by Angular</h2>
-
   </header>
 
+
+  <!-- USER SECTION -->
   <section id="leftWindow">
 
     <section>
+      <!-- INPUT BUTTON -->
       <input id="pictureInput" type="file" accept="image/*" (change)="onFileSelected($event)" />
 
+
+      <!-- PREDICT BUTTON -->
       <ng-container *ngIf="!isLoading && selectedFile">
         <button id="predictButton" (click)="setSelectedFile()">Predict</button>
       </ng-container>
     </section>
 
+    <!-- USER UPLOADED PICTURE -->
     <figure id="uploadedPicture">
       <ng-container *ngIf="selectedImageSource">
         <img id="uploadedPicture" [src]="selectedImageSource" alt="Selected Image" width="500" height="300" object-fit="cover">
@@ -101,19 +40,22 @@
   </section>
 
 
+  <!-- FEEDBACK SECTION -->
   <section id="rightWindow">
 
+    <!-- IF THERE IS A PREDICTION -->
     <ng-container *ngIf="(prediction$ | async) as pred; else noPrediction">
 
       <article id="prediction">
-        <h2 id="predictionLabel"> {{ pred.predictedLabel }} </h2>
-        <h3 id="percentageTitle">Probability:</h3>
+        <h2>Last prediction:</h2>
+        <h4 id="predictionLabel"> {{ pred.predictedLabel }} </h4>
+        <h2 id="percentageTitle">Probability:</h2>
         <h4 id="predictionPercentage"> {{ counter | number: '0.1-2' }}% </h4>
       </article>
 
     </ng-container>
 
-
+    <!-- IF THERE IS NO PREDICTION -->
     <ng-template #noPrediction>
 
       <article id="prediction">
@@ -122,15 +64,15 @@
         </ng-container>
 
         <ng-container *ngIf="!selectedFile && !error">
-          <h4>Select an image</h4>
+          <h2>Select an image</h2>
         </ng-container>
 
         <ng-container *ngIf="selectedFile && !isLoading && !error">
-          <h4>Click predict!</h4>
+          <h2>Click predict!</h2>
         </ng-container>
 
         <ng-container *ngIf="error">
-          <h4> {{ error }} </h4>
+          <h2> {{ error }} </h2>
         </ng-container>
       </article>
 
@@ -138,7 +80,7 @@
 
   </section>
 
-
+  <!-- FOOTER -->
   <footer id="footer">
     &copy; Quentin De Munck - 2023
   </footer>

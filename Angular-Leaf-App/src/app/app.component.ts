@@ -79,11 +79,11 @@ export class AppComponent {
     combineLatest([this.predictionResult$, this.isCancelled$])
       .pipe(
         switchMap(([prediction, isCancelled]) => {
-          if (isCancelled) {
-            return of(null)
+          if (!isCancelled) {
+            return of(prediction)
           }
           else {
-            return of(prediction);
+            return of(null);
           }
         }),
         shareReplay(1)
@@ -115,8 +115,11 @@ export class AppComponent {
       ),
     );
 
-
   onFileSelected(event: any): void {
+
+    if (!this.isCancelled$.value) {
+      this.isCancelled$.next(true);
+    }
     this.selectedImageSource = null;
     this.error = null;
     this.isLoading = false;
@@ -124,37 +127,25 @@ export class AppComponent {
 
     if (this.selectedFile) {
 
+
       // Upload the image to render it on the webpage
       const reader = new FileReader();
       reader.onload = (e) => {
         this.selectedImageSource = this.sanitizer.bypassSecurityTrustUrl(e.target?.result as string);
       };
-
       reader.readAsDataURL(this.selectedFile);
-      if (this.isCancelled$.value) {
-        this.isCancelled$.next(false);
-      }
     }
     else {
       this.isCancelled$.next(true);
     }
   }
 
-  getProbability(scores: number[]) {
-    let probability = this.getMaxNumber(scores);
-    return probability;
-    /*    return this.formatNumber(probability);*/
-  }
-
   getMaxNumber(scores: number[]): number {
     return scores.sort((a, b) => b - a)[0];
   }
 
-  formatNumber(number: number): string {
-    return (number * 100).toFixed(2);
-  }
-
   setSelectedFile() {
-    return this.behaviorObject$.next(this.selectedFile)
+    this.behaviorObject$.next(this.selectedFile);
+    this.isCancelled$.next(false);
   }
 }
