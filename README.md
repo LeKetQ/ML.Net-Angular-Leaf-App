@@ -22,7 +22,6 @@ Learning how to harness the power of machine learning is a certain road to the m
   - [x] Week 3 - 5: In-dept Research
   - [x] Week 6 - 12: Implementation
   - [x] Week 13: Fine Tuning & debugging
-  - [ ] Week 14: Peer Review
 
 
 ## Sources
