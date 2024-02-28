@@ -1,5 +1,4 @@
-# PlantBuddy goes AI
-
+# ML.Net Leaf recognizer
 
 ## Project
 #### Goal 
